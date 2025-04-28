@@ -23,3 +23,6 @@ Design Patterns: Singleton, Factory, Observer, etc.
 Data Structures & Algorithms in Java
 
 This repository is continuously updated with new examples and challenges to reinforce core Java principles. It serves as a reference for both beginner and intermediate Java developers looking to solidify their skills and build robust applications.
+
+//class and object
+//1st pillar abstarction
