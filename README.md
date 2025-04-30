@@ -237,3 +237,86 @@ Copy
 Edit
 javac filename.java     // Compile the program
 java filename           // Run the program
+
+Day 3:
+
+P## 1. Data Types
+
+### char
+- 2 bytes
+
+### byte
+- 1 byte
+- Signed (2's complement)
+- Default: 0
+
+### short
+- 2 bytes
+- Example: short var = 4;
+
+### int
+- 4 bytes
+- Example: int var = 45;
+
+### long
+- 8 bytes
+- Example: long var = 456L;
+
+### float
+- 32-bit (IEEE 754)
+- Example: float var = 45.56f;
+
+### double
+- 64-bit (IEEE 754)
+- Example: double var = 43.56d;
+
+### boolean
+- 1 bit
+- Values: true or false
+- Default: false
+
+---
+
+## 2. Types of Conversion
+
+### Widening / Automatic Conversion
+- Lower datatype → Higher datatype
+- Automatic if sufficient range
+
+### Downcasting / Explicit Conversion
+- Higher datatype → Lower datatype
+- Causes error (lossy conversion) unless explicitly typecasted
+- May result in negative values
+
+### Promotion During Expression
+- If range exceeds in expression
+- Automatically promoted to next datatype unless explicitly cast
+
+### Explicit Casting During Expression
+- When lower and higher datatypes are used in an expression
+- Converted to higher type unless explicitly cast
+
+---
+
+## 3. Types of Variables
+
+### Member / Instance Variable
+- Declared inside class
+- Default values assigned as per datatype
+- Separate copy per object
+
+### Static Variable
+- Shared at class level
+- Single copy, not per object
+
+### Constructor Variable
+- Passed via constructor
+- Needs object to be used
+
+### Local Variable
+- Declared inside methods
+- Limited to method scope
+
+### Parameter Variable
+- Passed as arguments to methods
+- Available only within that method
