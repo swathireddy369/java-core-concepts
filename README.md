@@ -150,7 +150,7 @@ Aggregation	Weak HAS-A (independent)	School–Student
 Composition	Strong HAS-A (dependent)	School–Room
 
 =========================
-Day-2
+Day-2:
 
 ===========================
 📌 What is Java?
