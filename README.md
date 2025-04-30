@@ -24,6 +24,9 @@ Data Structures & Algorithms in Java
 
 This repository is continuously updated with new examples and challenges to reinforce core Java principles. It serves as a reference for both beginner and intermediate Java developers looking to solidify their skills and build robust applications.
 
+Day-1:
+=============================
+
 /🔁 OOP Concepts - Quick Revision
 ⚙️ Class & Object
 Class: Blueprint/template for creating objects
@@ -145,3 +148,92 @@ IS-A	Inheritance	Car IS-A Vehicle
 HAS-A	Class uses another class	School HAS-A Student
 Aggregation	Weak HAS-A (independent)	School–Student
 Composition	Strong HAS-A (dependent)	School–Room
+
+=========================
+Day-2
+
+===========================
+📌 What is Java?
+Java is a platform-independent, object-oriented programming language.
+
+It supports WORA (Write Once, Run Anywhere).
+
+📦 Java Compilation & Execution Flow:
+Write Java Program
+→ Save with .java extension.
+
+Compile using Java Compiler (javac) from JDK
+→ Converts source code into bytecode (.class file).
+
+Run using JVM (Java Virtual Machine)
+
+JVM interprets bytecode and converts it to machine code.
+
+If the bytecode uses any libraries, JRE is needed to provide class libraries.
+
+🧩 Components:
+JDK (Java Development Kit):
+
+Contains compiler, debugger, and programming tools.
+
+Includes JRE + development tools.
+
+JRE (Java Runtime Environment):
+
+Contains JVM and class libraries.
+
+Cannot be used to write Java programs (only run them).
+
+JVM (Java Virtual Machine):
+
+Converts bytecode to machine code.
+
+Includes JIT (Just-In-Time) Compiler for performance.
+
+💡 Summary:
+You need JDK to write and run Java programs.
+
+JDK = JRE + JVM + Development Tools
+
+JRE = JVM + Class Libraries
+
+🧵 Java Editions:
+JSE (Java Standard Edition): Core Java – classes, objects, OOP concepts.
+
+JEE (Java Enterprise Edition / Jakarta Edition):
+APIs for enterprise apps – transactions, rollback, commit, servlets, JSP, eCommerce.
+
+JME (Java Micro Edition): APIs for mobile apps.
+
+⚙️ Java File Rules:
+File name must be the same as the public class name.
+
+A file can only have one public class.
+
+The class must contain the main method to run.
+
+🔁 public static void main(String[] args)
+public: JVM can access it from outside.
+
+static: JVM doesn’t need to create an object to call it.
+
+void: It does not return anything.
+
+String[] args: JVM can pass arguments to the program.
+
+📝 Comments in Java:
+Single-line comment: // this is comment
+
+Multi-line comment:
+
+java
+Copy
+Edit
+/* this is also a  
+   comment multiline */
+🛠️ Commands:
+bash
+Copy
+Edit
+javac filename.java     // Compile the program
+java filename           // Run the program
