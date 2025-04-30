@@ -149,7 +149,7 @@ HAS-A	Class uses another class	School HAS-A Student
 Aggregation	Weak HAS-A (independent)	School–Student
 Composition	Strong HAS-A (dependent)	School–Room
 
-=========================
+
 Day-2:
 
 ===========================
