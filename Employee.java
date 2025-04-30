@@ -3,7 +3,7 @@ public class Employee{
         //this is comment single line
         /* this is also a 
         comment multiline */
-        int a=369;
+        int a=369;//variable defining and initialization  
         System.out.println("this is my first prohgram output of a is"+a);
     }
 }
