@@ -320,3 +320,123 @@ P## 1. Data Types
 ### Parameter Variable
 - Passed as arguments to methods
 - Available only within that method
+
+
+
+Day-4:
+
+## 📌 Reference Data Types
+
+### 🔹 Class
+- Reference type: When we create an object of a class, it creates memory in the heap.
+- That variable points to the memory address.
+- If we update anything with that object, it updates the value at that memory address.
+
+---
+
+### 🔹 String
+
+```java
+public class Stringbasics {
+    public static void main(String a[]) {
+        String s1 = "hello"; // goes into String Constant Pool in heap
+        String s2 = "hello"; // reuses "hello" from pool if it exists
+
+        if (s1.equals(s2)) {
+            // checks content equality
+        }
+
+        if (s1 == s2) {
+            // checks reference equality
+        }
+
+        String s3 = new String("hello"); // creates new object in heap
+
+        if (s1 == s3) {
+            // false – references are not equal
+        }
+
+        if (s3.equals(s1)) {
+            // true – contents are equal
+        }
+    }
+
+    // String literals = contents in String Constant Pool
+    // Strings are immutable – updates create a new object in pool
+}
+🔹 Interface
+java
+Copy
+Edit
+public interface InnerInterfaceDetails {
+    public String profession();
+}
+
+class Student implements InnerInterfaceDetails {
+    @Override
+    public String profession() {
+        return "Masters";
+    }
+}
+
+class Employee implements InnerInterfaceDetails {
+    @Override
+    public String profession() {
+        return "Software Engineer";
+    }
+}
+Ways to create object:
+
+java
+Copy
+Edit
+InnerInterfaceDetails infoObj1 = new Employee(); // parent reference → child object
+InnerInterfaceDetails infoObj2 = new Student();  // parent reference → child object
+Student s1 = new Student();                      // child reference → child object
+Employee e1 = new Employee();                    // child reference → child object
+🔹 Array
+java
+Copy
+Edit
+int[] arr = new int[5];
+int[] arr2 = {0, 1, 2, 3, 4};
+int arr3[] = new int[5];
+Arrays hold the reference to the memory location of the elements.
+
+🔹 Primitive & Wrapper Types
+Primitive types (pass by value):
+
+arduino
+Copy
+Edit
+char, byte, short, int, long, double, float, boolean
+Wrapper classes (reference types):
+
+kotlin
+Copy
+Edit
+Character, Byte, Short, Integer, Long, Double, Float, Boolean
+All collections use reference types only.
+
+Use wrapper classes in collections like ArrayList, HashMap.
+
+🔹 Auto Boxing & Unboxing
+java
+Copy
+Edit
+// Auto-boxing: primitive → wrapper
+Integer var = 9;
+
+// Auto-unboxing: wrapper → primitive
+int var1 = var;
+🔹 Constant Variables
+java
+Copy
+Edit
+static int var = 9; // shared across class
+
+// To prevent modification:
+static final int VAR = 9;
+static: one copy at class level
+
+final: value cannot be changed
