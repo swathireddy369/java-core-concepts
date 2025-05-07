@@ -82,8 +82,7 @@ Achieved through inheritance
 Example:
 
 kotlin
-Copy
-Edit
+
 class Animal {}
 class Dog extends Animal {}
 
@@ -106,9 +105,7 @@ Uses object reference from one class to another
 
 Both objects can exist independently
 
-kotlin
-Copy
-Edit
+
 class Student {}
 class School {
     List<Student> students;  // Aggregation
@@ -124,9 +121,6 @@ Object of one class is created inside another class
 
 If one is destroyed, the other is affected
 
-java
-Copy
-Edit
 class Classroom {}
 class School {
     Classroom room = new Classroom();  // Composition
@@ -139,8 +133,9 @@ Removing the school also removes its rooms
 
 📊 Summary Table
 
-Concept	Description	Example
-Abstraction	Hides internal details	Car interface (not engine)
+
+Abstraction	Hides internal details	Car 
+interface (not engine)
 Encapsulation	Binds data + methods	Private fields with getters/setters
 Inheritance	Child inherits from Parent	class Car extends Vehicle
 Polymorphism	One interface, many forms	run() method in multiple classes
@@ -226,19 +221,25 @@ Single-line comment: // this is comment
 
 Multi-line comment:
 
-java
-Copy
-Edit
+
 /* this is also a  
    comment multiline */
 🛠️ Commands:
-bash
-Copy
-Edit
+
 javac filename.java     // Compile the program
 java filename           // Run the program
 
 Day 3:
+
+
+//variable is a conatiner which holds value
+//java static and strongly type language
+//static:because its data type defined initailly
+//after defined data type we should assign the values as per that datatype range itself it tells us java is stronlgy typed as well
+//variable names can contain alll unicodes
+//variable starting should be either of these _,$ or character not digit
+//if we have two words in variabke anme then should follow camelcase
+//if we define static variable then give all captail letters for that
 
 P## 1. Data Types
 
@@ -365,9 +366,7 @@ public class Stringbasics {
     // Strings are immutable – updates create a new object in pool
 }
 🔹 Interface
-java
-Copy
-Edit
+
 public interface InnerInterfaceDetails {
     public String profession();
 }
@@ -387,17 +386,13 @@ class Employee implements InnerInterfaceDetails {
 }
 Ways to create object:
 
-java
-Copy
-Edit
+
 InnerInterfaceDetails infoObj1 = new Employee(); // parent reference → child object
 InnerInterfaceDetails infoObj2 = new Student();  // parent reference → child object
 Student s1 = new Student();                      // child reference → child object
 Employee e1 = new Employee();                    // child reference → child object
 🔹 Array
-java
-Copy
-Edit
+
 int[] arr = new int[5];
 int[] arr2 = {0, 1, 2, 3, 4};
 int arr3[] = new int[5];
@@ -406,37 +401,75 @@ Arrays hold the reference to the memory location of the elements.
 🔹 Primitive & Wrapper Types
 Primitive types (pass by value):
 
-arduino
-Copy
-Edit
+
 char, byte, short, int, long, double, float, boolean
 Wrapper classes (reference types):
 
-kotlin
-Copy
-Edit
+
 Character, Byte, Short, Integer, Long, Double, Float, Boolean
 All collections use reference types only.
 
 Use wrapper classes in collections like ArrayList, HashMap.
 
 🔹 Auto Boxing & Unboxing
-java
-Copy
-Edit
+
 // Auto-boxing: primitive → wrapper
-Integer var = 9;
+int var1=9;
+Integer var = var1;
 
 // Auto-unboxing: wrapper → primitive
+Integer var=45;
 int var1 = var;
+
 🔹 Constant Variables
-java
-Copy
-Edit
+
 static int var = 9; // shared across class
 
 // To prevent modification:
 static final int VAR = 9;
-static: one copy at class level
 
+static: one copy at class level
 final: value cannot be changed
+
+Day-5:
+access specifiers:
+public
+private
+protected
+default
+
+return types
+
+boolean
+int
+
+method name (should be action)
+camelCase(if two words)
+
+method parameters and arguments
+
+
+types of methods:
+
+system define method: Math.max (JRE)
+user defined method
+overloaded methods same name of two diff methods and diff parameters
+ploy morphism
+
+overrite:subclass has same as parent class vechile and car
+
+
+static: class level copy maintained
+cannot use non static methods and variables inside static
+cannit overide staic methods
+
+
+create static method when there is no need of instance or class variables
+
+final:make method as final whne you dont want to make any chanegs on that in further
+
+abstarct: abstract method can be declared in abstarct class itself and only declaration can make in parent class the rest implementation can be done by child class
+
+variable paramters: ...var
+but only one variable arg can be presnet
+and variable arg should be in last
