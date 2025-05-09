@@ -473,3 +473,195 @@ abstarct: abstract method can be declared in abstarct class itself and only decl
 variable paramters: ...var
 but only one variable arg can be presnet
 and variable arg should be in last
+
+
+
+Day 7:
+
+ class Employee{
+  private Employee(){ //it should be same as class name to idefiy easily and it should not have any return type 
+    // it should be tye as abstract,static and final
+    // if it is abstract then it should be declraed in parent and define din child right in inheritance concpet as the first step we cannot inherit construtor becuase whereevrr constru present it shoud same as class class it's not achive in child class so we cannot inherit and overriden so no ise of abstract
+    // final: final defines the method should not be mutated as we are mutating the constructor so it should allow
+  //static if we put static it cannot use not static (instance variables) but our construtor assigns or updates values of instance variables so dont put static 
+
+    System.out.println("con");
+  }
+  public static Employee getInstance(){ //it should be public and static because non static should require instance to call 
+    return new Employee();
+  }
+}
+//what if we put private access specifier for construtor so then we cannot create object of calls from outside this class the main purpose of construtor is create instanc eof a class if we put [privet we cannot achieve that ]
+//  so we should not ok then if we put cons private we have to have explore  (return)that by public another method to create object frommoutside otherwise we cannot create objetct  for it
+ public class Constructor {
+    public static void main(String  args[]){
+      Employee empObj=Employee.getInstance();
+      
+    }
+}
+public class ConstructorChaining {
+    public static void main(String args[]){
+   Person pObj=new Person();
+   
+    }
+}
+class Person extends ConstructorChainingParent{
+    int age;//localor class variable can  be assigned default value.
+    String name;
+ ///no args custom
+  Person(){
+     this(33);//this must be in the first statement this does know before 
+    //  super(33);
+    System.out.println("custom con"+age+""+name);
+  }
+  Person(int age){
+    this(age,"swathi");
+    //   super(33);
+    this.age=age;
+  }
+  Person(int age,String name){
+     super(33);
+    this.age=age;
+    this.name=name;  }
+}
+
+parent
+ public class ConstructorChainingParent {
+    int age;
+      ConstructorChainingParent(int age){
+        this.age=age;
+        System.out.println("Im parent"+age);
+      } 
+}
+Java Constructor Concepts: Organized Notes
+Let me organize your notes about Java constructors, constructor chaining, and access modifiers into a clear, structured format.
+1. Constructor Basics
+
+Definition: A constructor is a special method used to initialize objects
+Characteristics:
+
+Must have the same name as the class
+No return type (not even void)
+Executes automatically when an object is created
+
+
+
+2. Constructor Access Modifiers
+Private Constructors
+
+Makes direct instantiation from outside the class impossible
+Use cases:
+
+Singleton pattern
+Factory method pattern
+Utility classes (static methods only)
+
+
+Example:
+
+javaclass Employee {
+  private Employee() {
+    System.out.println("con");
+  }
+  
+  public static Employee getInstance() {
+    return new Employee();  // Factory method
+  }
+}
+Why Constructor Can't Be...
+
+Abstract: Constructors can't be inherited or overridden (must have same name as class)
+Static: Constructors initialize instance variables, static methods can't access non-static members
+Final: Not needed as constructors can't be overridden anyway
+
+3. Constructor Chaining
+
+Definition: Calling one constructor from another within the same class
+Implementation: Using this() keyword
+Rules:
+
+this() must be the first statement in the constructor
+Only one this() call allowed per constructor
+
+
+
+4. Constructor and Inheritance
+
+Child classes don't inherit parent constructors
+Parent constructor is called before child constructor
+If no explicit call, super() is implicitly called
+Using super(parameters) to call specific parent constructor
+
+5. Visual Representation
+artifact: constructor-conceptsJava Constructor ConceptsDiagram 6. Constructor Execution Flow Example
+artifact: execution-flowConstructor Execution Flow ExampleDiagram 7. Code Example Analysis
+Example 1: Private Constructor with Factory Method
+javaclass Employee {
+  private Employee() {
+    System.out.println("con");
+  }
+  
+  public static Employee getInstance() {
+    return new Employee();
+  }
+}
+
+public class Constructor {
+  public static void main(String args[]) {
+    Employee empObj = Employee.getInstance();
+  }
+}
+Output: con
+Key Points:
+
+Private constructor prevents direct instantiation
+Factory method provides controlled object creation
+Could be modified to implement Singleton pattern
+
+Example 2: Constructor Chaining
+javaclass Person extends ConstructorChainingParent {
+  int age;
+  String name;
+  
+  Person() {
+    this(33);  // Calls Person(int)
+    System.out.println("custom con" + age + "" + name);
+  }
+  
+  Person(int age) {
+    this(age, "swathi");  // Calls Person(int, String)
+    this.age = age;  // Note: This overwrites value set in Person(int, String)
+  }
+  
+  Person(int age, String name) {
+    super(33);  // Calls parent constructor
+    this.age = age;
+    this.name = name;
+  }
+}
+
+class ConstructorChainingParent {
+  int age;
+  
+  ConstructorChainingParent(int age) {
+    this.age = age;
+    System.out.println("Im parent" + age);
+  }
+}
+Execution Flow:
+
+Person() calls Person(33)
+Person(33) calls Person(33, "swathi")
+Person(33, "swathi") calls ConstructorChainingParent(33)
+Parent constructor executes, prints "Im parent33"
+Person(33, "swathi") sets age=33, name="swathi"
+Person(33) sets age=33 again (redundant)
+Person() prints "custom con33swathi"
+
+8. Best Practices
+
+Keep constructors simple and focused on initialization
+Follow the constructor chaining pattern for parameter variations
+Use factory methods for complex object creation logic
+Consider validation in constructors to ensure object integrity
+Minimize side effects in constructors (like network calls or file I/O)
