@@ -665,3 +665,152 @@ Follow the constructor chaining pattern for parameter variations
 Use factory methods for complex object creation logic
 Consider validation in constructors to ensure object integrity
 Minimize side effects in constructors (like network calls or file I/O)
+
+
+
+Week-3:
+
+Day 8:
+
+stack ,heap and garbage collector mark and sweep
+
+stack:stroes primitive variables and references to the objects which are stored in heap
+whenever we create a instance of a object the object is going to store at heap and that heapmemory reference stored in stack
+
+whenever string encounters in our code it simple stores a reference obj in string constant pool ,if we create another sting with same first it checks whether string constant contain that value or not if it does it simply store that refrence only instead of creating new one, when we say new String then it creas new constant pool
+
+as we know jvm periodaically runs the GC here when gc stars running all the appliation progess or api is being passed till GC complets its execution 
+we have serial GC:stops the world and runs one thread
+parallel Gc:runs multiple threads to collect still pasue the applicatipn api but little bit better 
+concurrent gc:depricated in java 9 because it does not perform compact memory collection after swept  and removed in java 14 it runs parallely with app apis to reduce pause but it reslt in fragment left space not compact one
+GI GC : here till java 9 collector default gc remaining 3 of does compact memory collection
+
+stack conatin smultple threads but in heap has one thred****************************(need to focus)
+and in stack whenever a block is started it allocates a frame for that block as go throguh when encounter block end the frame from stack would be deleted in last in first out order
+ here while allocation or code is being compiled if encounters a open brance it assumes it has new method and it allocate new frmae for that in memory
+but if that block contains any reference variabke then reference variable container would be deleted but not the actula reference from heap so to clear that actual memory space in heap GC will come into play 
+ JVM throughly runs GC to check whether heap does conatins any unreferenced objects from stack it if does then simply remove it from heap by using mark and sweep algorithm
+
+as refrences are concerd we ahve 3 types of reference  
+strong reference: when GC runs if it encounters  a string ref just check whther ref exit in stack or not if not only removes it from heap 
+
+but in week ref case GC simply removes the memory for that reference in heap irrespective of checking from stack ,althougth if try to access it from stack simple gives numm pointer exception i think gives null
+
+whereas in case of sensitive it is similar to week but before it does cleanup only in case of emergency 
+
+
+
+ how GC works by using mark and sweep algoriythm:
+
+ here in heap we have two phases
+
+ young phase and older phase
+ young has 3 block eden,survivor0,survivor1
+
+ first when create object it goes into young eden phase as soon as GC runs as it follows mark an dsweep algo it first makrs the object which are unreferenced okay then it removes fron eden and move the nremaining objs to su0 and update the age by 1, beofre next Gc runs if we create any obj it goes to eden first then now if gc runs it again mark nodes and sweep them and move object to su1 and incrementin age accordingly then after GC ruuning 3rd time it moves to su0 agin it circulate between 2block especially once moves to survivor space of new it goes eden here one facto every heap has some threeshold it object age reahces threeshold it simple mv=oves to old generation as major gen for young we call minor in old gen as well GC folow same process but as the old the process it little bit slow compare to young and we have one more block non heap meta space it stores class variavles ,static,static final constants beofre java7 we have peremanent space but it inclues in heap when it fills it throuws error as heap as limited space okay so that it moved to out of heap and named as meta space it stores info about class 
+
+
+Java Memory Management: Stack, Heap, and Garbage Collection
+I've organized your notes into a comprehensive explanation of Java memory management. Here's a clear breakdown of the concepts:
+Stack
+
+Purpose: Stores primitive variables and references to objects in heap
+Characteristics:
+
+Each thread has its own stack
+When a new code block starts, a new frame is allocated on the stack
+Works in Last-In-First-Out (LIFO) order
+When a block ends, its frame is removed from the stack
+Limited in size compared to heap
+
+
+
+Heap
+
+Purpose: Stores actual objects created during runtime
+Characteristics:
+
+Single shared memory area across all threads
+Managed by Garbage Collector
+Divided into generations for efficient memory management
+
+
+
+Heap Generations
+
+Young Generation:
+
+Eden Space: Initial allocation area for new objects
+Survivor Spaces (S0 and S1): Objects that survive GC cycles move here
+Objects cycle between S0 and S1, with age incremented each cycle
+
+
+Old Generation (Tenured):
+
+Objects that survive multiple GC cycles and reach age threshold
+Major GC runs here (slower but less frequent)
+
+
+
+String Constant Pool
+
+Special area in memory that stores string literals
+If creating a string with same value, JVM checks if it exists in pool first
+Using new String() forces creation of a new object regardless of pool content
+
+Metaspace (Non-Heap)
+
+Replaced PermGen space since Java 8
+Located outside of heap memory
+Stores:
+
+Class metadata
+Static variables
+Static final constants
+
+
+
+Garbage Collection
+
+Purpose: Reclaim memory occupied by unused objects
+Mark and Sweep Algorithm:
+
+Mark: Identify live objects (referenced from stack)
+Sweep: Remove unmarked objects and compact memory
+
+
+
+GC Process
+
+Minor GC: Runs on Young Generation
+
+Marks unreferenced objects in Eden
+Moves surviving objects to S0/S1, incrementing age
+Objects circulate between survivors until reaching threshold
+
+
+Major GC: Runs on Old Generation
+
+Slower but less frequent
+Same marking and sweeping process
+
+
+
+Reference Types
+
+Strong References: Normal object references
+
+GC only removes if no references exist in stack
+
+
+Weak References: Removed during next GC cycle
+
+Regardless of stack references
+Accessing after GC returns null
+
+
+Soft References: Similar to weak but cleared only when memory is low
+
+Used for caching scenarios
+
+https://claude.ai/public/artifacts/db4d5c3b-50f8-425d-bd40-77c67da9e741
