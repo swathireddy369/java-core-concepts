@@ -814,3 +814,119 @@ Soft References: Similar to weak but cleared only when memory is low
 Used for caching scenarios
 
 https://claude.ai/public/artifacts/db4d5c3b-50f8-425d-bd40-77c67da9e741
+
+
+===========================================================================================
+
+Day 8:
+
+Class Types:
+Concrete class:
+A class that we can create instance for it and all methods in this class should contain implementation. It may be implemented by interface or it can be extended from abstract parent class
+by achieving abstraction in this point. Access modifier would be public or private package.
+
+Abstract class:
+A key which abstract key in front of class name. As it suggests, it should have at least one abstract method and it may contain implementation methods remaining.
+❌ we cannot create instance for it. Access modifier would be public or private package.
+
+Super Class and Sub Class:
+Also known as parent and child class. A class which can be inherited by other class called child class, and a class which is inherited is called parent.
+Always a parent class can refer to child object.
+When we call child class constructor by default it calls parent constructor under the hood — it contains super() for default constructor.
+If it is a parameterised one, we should call super() manually.
+
+Object:
+Let say A is parent for B class, so B is child. Then for A the object is parent class:
+
+java
+Copy
+Edit
+Object obj = new A();
+Object obj = new B();
+obj.notifyAll();
+Nested Class:
+Static Nested Class:
+A class inside another class is called nested class.
+Let’s say a particular class is being used in only one class, then instead of creating new file for that we can create class inside the class where we were using this class.
+
+java
+Copy
+Edit
+class A {
+    static class B {
+        public void print() {
+        }
+    }
+}
+So as B is static class, no need of object creation for outer class.
+But it cannot access instance members of parent — only static members can access.
+
+java
+Copy
+Edit
+A.B abobj = new A.B();
+abobj.print();
+Non-Static Nested Class:
+inner class
+
+member class
+
+anonymous class
+
+Inner Class:
+Same like a class inside another class. Here we should create object for outer class as well if we want to use members of nested class.
+
+java
+Copy
+Edit
+class A {
+    class B {
+        public void print() {
+        }
+    }
+}
+
+// A obj = new A();
+B bobj = obj.new B();
+bobj.print();
+Member Class:
+Member class defines a class which is defined inside a member of another class
+so that it can be accessed inside that block itself.
+As we know, once end brace encounters, its frame will be removed from stack.
+
+Its access modifier is private because it cannot be used outside the block.
+If we want to use outside, have to create one public member inside that block and expose that instance of private class.
+
+java
+Copy
+Edit
+class A {
+    public void display() {
+        class B {
+            System.out.println("print");
+        }
+        B bobj = new B();
+        bobj.print();
+        
+        public expose() {
+            B bobj = new B();
+        }
+    }
+}
+Anonymous Class:
+Anonymous defined as a class that does not have any class name.
+We usually provide class right? Let say we have a method in abstract class and we need to provide implementation for that — that is no other usage of that —
+then simply use anonymous class to provide implementation without creating class with class name.
+
+java
+Copy
+Edit
+abstract class A {
+    public abstract void display();
+}
+
+A aobj = new A() {
+    public void display() {
+        System.out.println("hii hello");
+    }
+};
