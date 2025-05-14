@@ -930,3 +930,316 @@ A aobj = new A() {
         System.out.println("hii hello");
     }
 };
+
+
+
+
+Day-9:
+
+Understanding Java Generics
+Basic Generic Class
+javaclass check<T> {
+    T ob;
+
+    public void assign(T ob) {
+        System.out.println(ob);
+    }
+
+    public T getValObject() {
+        return ob;
+    }
+}
+Generic Subclass
+java// Generic subclass - preserves type parameter
+class sub<T> extends check<T> {}
+
+// Non-generic subclass - fixes type parameter
+class sub1 extends check<Integer> {}
+Multiple Type Parameters
+javaclass multiple<T, K> {
+    private T key;
+    private K val;
+
+    public void assign(T key, K val) {
+        System.out.println(key + "" + val);
+    }
+
+    // public T getValObject() {
+    //     return key;
+    // }
+    // public K getValObject1() {
+    //     return val;
+    // }
+}
+Generic Method
+javaclass check2 {
+    public <T> void assign(T ob) {
+        System.out.println(ob);
+    }
+}
+Bounded Type Parameters
+Upper Bound
+java// Single upper bound
+class upper<T extends Number> {
+}
+
+// Multiple bounds
+class multibound<T extends Number, inf1, inf2> {
+}
+Wildcard Notes
+java// With wildcards, we can have different types for each parameter
+// public void method1(List<T> val1, List<K> val2) {}
+
+// With generic methods, we use a single type parameter
+// public <T> void method1(List<T> val1) {}
+
+Wildcard methods can support lower bounds
+Generic methods with single type cannot handle multiple types
+For multiple types, we need multi-generic methods
+
+Unbounded Type Parameters
+javaclass sub3 {
+    public <T> void setvashe() {
+        // Here unbounded - can pass any type
+    }
+}
+Important Concepts
+
+Type erasure: After compiling, generic types are erased and replaced with Object in bytecode
+Raw types: When we don't mention any type, just pass values
+Upper bound: We can pass the specified type and its children (e.g., Number and Number's child types)
+Lower bound: We can pass the specified type and its parent types
+Unbounded: Can pass any type
+
+Usage Example
+javapublic class GenericExamples {
+    public static void main(String args[]) {
+        // Using generic class with Integer
+        check<Integer> obj = new check<>();
+        obj.assign(3);
+        // obj.assign("swathi"); // This won't work - type safety
+
+        // Generic subclass
+        sub<Integer> st = new sub<>();
+        st.getValObject();
+        
+        // Raw type usage
+        sub sb1 = new sub();
+        sb1.getValObject();
+        
+        // Multiple type parameters
+        multiple<Integer, String> obj4 = new multiple<>();
+        obj4.assign(1, "swathi");
+
+        // Generic method
+        check2 gm = new check2();
+        gm.assign(4);
+        
+        // Upper bound example
+        upper<Integer> u = new upper();
+    }
+}
+
+//////////////////////////
+/// 
+/// Java POJO and Enum Concepts
+POJO (Plain Old Java Object)
+A POJO is a simple Java class with the following characteristics:
+
+Uses public access modifier for the class
+Contains variables (fields) with their getter and setter methods
+Can extend other classes or implement interfaces
+Has a public default constructor
+Does not use annotations like @Entity (remains framework-independent)
+
+Common Use Cases for POJOs:
+
+Data Transfer/Mapping:
+
+When receiving data from clients (e.g., JSON like {id, name, address})
+Acts as a mapping class to standardize variable names between client and server
+
+
+In Application Architecture Flow:
+
+Typical flow: Controller → Service → Repository → POJO (entity objects)
+Used to represent data structures consistently across application layers
+
+
+
+Example of a POJO:
+javapublic class StudentPojo {
+    // Private fields
+    private int id;
+    private String name;
+    private String address;
+    
+    // Default constructor
+    public StudentPojo() {
+    }
+    
+    // Parameterized constructor
+    public StudentPojo(int id, String name, String address) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+    }
+    
+    // Getter and Setter methods
+    public int getId() {
+        return id;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getAddress() {
+        return address;
+    }
+    
+    public void setAddress(String address) {
+        this.address = address;
+    }
+}
+Enum (Enumeration)
+An Enum is a special type of class in Java that represents a collection of constants:
+
+Declared using the enum keyword
+Implicitly extends java.lang.Enum class (cannot extend any other class)
+Can implement interfaces
+Can have variables, constructors, and methods
+Can have abstract methods (but each constant must provide implementation)
+Constructor is always private (even default constructor becomes private in bytecode)
+No other class can extend an enum
+No need for instance creation as constants are static and final
+Ordinal values start from 0 automatically
+
+Advantages over Static Final Constants:
+
+Type-safety: Methods can accept only valid enum constants
+Built-in methods: values(), valueOf(), ordinal(), name()
+Can associate methods and additional data with each constant
+Prevents invalid values being passed to methods
+
+Example of an Enum:
+javapublic enum DayOfWeek {
+    MONDAY(1, "day1") {
+        @Override
+        public String specialAboutMyDay() {
+            return "Shiva";
+        }
+    },
+    TUESDAY(2, "day2") {
+        @Override
+        public String specialAboutMyDay() {
+            return "Yallamma Thalli";
+        }
+    },
+    WEDNESDAY(3, "day3") {
+        @Override
+        public String specialAboutMyDay() {
+            return "Vinayaka";
+        }
+    },
+    THURSDAY(4, "day4") {
+        @Override
+        public String specialAboutMyDay() {
+            return "Ayyappa Swamy";
+        }
+    },
+    FRIDAY(5, "day5") {
+        @Override
+        public String specialAboutMyDay() {
+            return "Laxmi Devi";
+        }
+    },
+    SATURDAY(6, "day6") {
+        @Override
+        public String specialAboutMyDay() {
+            return "Lord Venkateswara Swamy";
+        }
+    },
+    SUNDAY(7, "day7") {
+        @Override
+        public String specialAboutMyDay() {
+            return "All Devotionals";
+        }
+    };
+    
+    // Instance variables
+    private int id;
+    private String day;
+    
+    // Private constructor (enum constructors are always private)
+    DayOfWeek(int id, String day) {
+        this.id = id;
+        this.day = day;
+    }
+    
+    // Getter methods
+    public int getId() {
+        return id;
+    }
+    
+    public String getName() {
+        return day;
+    }
+    
+    // Other methods
+    public String toLowerCase(String day) {
+        return day.toLowerCase();
+    }
+    
+    // Abstract method - each enum constant must implement
+    public abstract String specialAboutMyDay();
+    
+    // Regular method
+    public boolean isWeekend() {
+        return this == SATURDAY || this == SUNDAY;
+    }
+}
+Alternative using Static Final Constants (Less Preferred):
+javapublic class DayConstants {
+    public static final int MONDAY = 0;
+    public static final int TUESDAY = 1;
+    public static final int WEDNESDAY = 2;
+    public static final int THURSDAY = 3;
+    public static final int FRIDAY = 4;
+    public static final int SATURDAY = 5;
+    public static final int SUNDAY = 6;
+    
+    // Disadvantage: This approach is not type-safe
+    public static boolean isWeekend(int day) {
+        return day == SATURDAY || day == SUNDAY;
+        // Nothing prevents passing invalid values like 10 or -1
+    }
+}
+Final Classes in Java
+When a class is declared with the final keyword:
+
+It cannot be extended by any other class
+Typically used when you want to prevent inheritance
+
+Example:
+javapublic final class ImmutableClass {
+    // This class cannot be extended
+}
+
+// This would cause a compilation error:
+// class ChildClass extends ImmutableClass { }
+Common Enum Methods
+
+values(): Returns array of all enum constants
+valueOf(String): Converts a string to the corresponding enum constant
+ordinal(): Returns the position of the enum constant (zero-based)
+name(): Returns the name of the enum constant as declared
+https://claude.ai/public/artifacts/8fa2755c-dbc4-4f53-b86f-4d098503e345
