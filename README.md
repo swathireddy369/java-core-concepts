@@ -670,7 +670,7 @@ Minimize side effects in constructors (like network calls or file I/O)
 
 Week-3:
 
-Day 8:
+Day 8:monday
 
 stack ,heap and garbage collector mark and sweep
 
@@ -818,7 +818,7 @@ https://claude.ai/public/artifacts/db4d5c3b-50f8-425d-bd40-77c67da9e741
 
 ===========================================================================================
 
-Day 8:
+Day 8:Tuesday
 
 Class Types:
 Concrete class:
@@ -934,7 +934,7 @@ A aobj = new A() {
 
 
 
-Day-9:
+Day-9:wednesday
 
 Understanding Java Generics
 Basic Generic Class
@@ -1246,7 +1246,7 @@ https://claude.ai/public/artifacts/8fa2755c-dbc4-4f53-b86f-4d098503e345
 
 
 
-Day-10
+Day-10 thursday
 
 Singleton Design Pattern Summary
 I've organized and corrected your notes on singleton design patterns and immutable classes. Here's a summary of the key concepts:
@@ -1578,7 +1578,7 @@ https://claude.ai/public/artifacts/8794d598-f822-4b64-820f-9abbcdc31bfd
 
 
 
-Day-11:
+Day-11: friday
 
 Functional interface:
 FunctionalInterfaceEx
@@ -1724,3 +1724,126 @@ public class Eagle{
 @CustomAnotations
 
 as inhave shown in above example we can create custom annoations and by provindg target and retention annotation we add some detial to thet where we use particular annotation and is it repeatable or not
+
+
+Day-12: saturday
+
+Excpetion handling:
+
+// Exception:
+// it is a piece of code it may cause to stop the excution of our code
+// we can handle the exceptions
+//we have two types of exceptions and have errors as well
+// erros:
+// loke jvm erros memory out of error (heap erro) and stack overflow error we cannot handle these 
+// where as exceptions are bith two types:
+
+// checked/compile time exceptions
+// // unchecked/runtime exceptions
+// // however
+
+// checked exceptions are 
+// object->Exception->thowable->(Runtimeand compiletime)
+// 1) classNotFoundException
+// here compiler does  force us to handle this while compilation itslef
+//we should handle it by using try-catch or thro it to main call ti ll start of stack
+
+// 2)run time exception 
+// 1)arthimatiException
+// 2)ClassCastException
+// 3)IndexOutOFBoundexception(Arrayindexoutofbound,stringindexoutofbound)
+// 4) nullpointerexception
+// here compiler does not force us to handle these exceptions
+
+//its runtime exception just throwing excpetion
+
+import java.io.IOException;
+
+public class ExceptionCheckCLass {
+    // public static void main(String[] args) throws ClassNotFoundException {
+     public static void main(String[] args){
+        try {
+            compiletime(0);
+        } catch(IOException ie){
+            System.out.println(ie);
+        }catch (Exception e) {
+            //if theyw ant to put some they can 
+            // throw e;//it may again throw it to main caller if it throws from here the caller should throw again
+
+            System.out.println(e);
+            
+        }
+        // catch(IOException ie){
+//this is not work here as all exception are handled above so move to up
+        // }
+          try {
+            compiletime(0);
+        } catch (Exception e) {
+            //if theyw ant to put some they can 
+            // throw e;//it may again throw it to main caller if it throws from here the caller should throw again
+
+            System.out.println(e);
+            
+        }finally{
+            //close any streams which are opened i can help you wjen you return from any of them try and catch but when systemgot shutdon and stack or memory erros occured or focrecifully stppped the excution i cannot help you in gthis to excute otherwise i do not have any restriction i ncan run
+        }
+
+
+        //try can use with just try and finally 
+        runTime(0);
+    }
+
+    // compile time it thows error sas we not handling it
+    private static void compiletime(int num) throws ClassNotFoundException ,IOException{
+        if (num == 0) {
+            throw new ClassNotFoundException();
+        }
+
+    }
+
+    // it does not throwing any error as its runtimeerror
+    private static void runTime(int num) throws NullPointerException {
+        if (num == 0) {
+            throw new NullPointerException();
+        }
+    }
+}
+
+
+
+
+Operators:
+
+operator is a sign to perform operation on operands
+operands : which are being performed in operation 
+
+
+1) arithmatic operators (+,-,*,%,/)
+2) relational operators (==,!=,<=,>=)
+3)logical operators(&&,||,!) ! treadt as unary operator as well
+4) assignment operators (=)
+5)unary operators (++,--,!) single operand
+6) bitwise operators (&&,||,!|,NOT)
+
+for &-> if both are true then only true
+for | -> if any on eof them true then it would be true
+for ^ : ->if both are same then its false if eithe rone of them is diff then its true
+
+~: it chnages from true to false
+false to true
+
+
+if we see 1 at MSB it teated as negative here
+
+7)bitwise shift operators (signed left << ,signed left>> and unsigned right <<<,unsigned right  >>>)
+here for singed left first we do 1s compliment then we cakculate usalually foir left its n*2 for right its n/2 
+for unsigned left no diff same as signed left but where as in unsigned right once we shift to right have to take from above for msb as me moved right
+this is case we should be keep in mid remaing is normal 
+
+one thing for unsinged need to take 1s compilientn double times as need to do 2's compliment 
+8)ternary operator:its mimc the for loop (a>b)? "hii":"heloo"
+9)instance of type operator   parentclass obj=new chilclase();
+
+ obj instanceOf(chilcclass)
+
+ 

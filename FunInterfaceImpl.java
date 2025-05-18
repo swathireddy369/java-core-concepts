@@ -33,7 +33,7 @@ public class FunInterfaceImpl {
       };
       fobj.fly(3);
       Predicate<Integer> Pobj=(Integer val)->{
-      System.out.println("i am predicte so i will take any input but i will give boolean");
+      System.out.println("i am predicte so i will take any input but i will give output");
       return true;
       };
       Pobj.fly(3);
