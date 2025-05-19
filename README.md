@@ -1847,3 +1847,52 @@ one thing for unsinged need to take 1s compilientn double times as need to do 2'
  obj instanceOf(chilcclass)
 
  
+
+ Day-13: sunday
+control flow statements:
+if,ifelse,nested if,if else ladder,while,do while and switch
+
+topic2:
+collection
+collection is a part of collection framework,it is a interface where it expose multiple methods whch has been implemented by collection classes those are arraylist,queue,linkedlit,set
+
+
+
+ where as collections: it is a class (utility) where it has all static methods to do operation on collection 
+ like sort()
+ reverse()
+
+ import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
+
+public class CollectionEx{
+    public static void main(String[] args) {
+        
+ List<Integer> li=new ArrayList<>();
+ System.out.println(li.add(3));
+ System.out.println( li.add(6));
+  System.out.println(li.add(9));
+
+  System.out.println(li.size());//3
+  System.out.println(li.isEmpty());//false
+  System.out.println(li.contains(5));//false
+  System.out.println(li.add(5));
+  System.out.println(li.contains(5));//true
+  System.out.println(li.remove(3));//3rd index will be removed
+  System.out.println(li.remove(Integer.valueOf(5)));//here now it will remove the value of particular indexd
+
+ Stack<Integer> st=new Stack<>();
+  System.out.println(st.addAll(li));//all values from li will be added to st
+  System.out.println(st.remove(Integer.valueOf(2)));
+  System.out.println(st.containsAll(li));
+  System.out.println(st.removeAll(li));
+  st.clear();
+  System.out.println(st.isEmpty());
+   /////collections
+  Collections.sort(li);
+    System.out.println(li);
+     System.out.println(Collections.max(li));
+    }
+}
