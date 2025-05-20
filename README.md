@@ -2054,3 +2054,72 @@ class Car implements Comparable<Car> {
         return this.carType.compareTo(other.carType);
     }
 }
+
+
+
+
+
+Day-15:
+Dequeue-insert and delete from both ends
+ArrayDeque:its array but extends queue so that from this we can insert and delete from biut ends of array basically we use this shilw implementing the stack or queue from array
+List
+Iterator-it implements iterable i intyerface it itterators over the collection ot has hasNext,next and remove
+LinkedList: it implemets list and queue so that we can add elemnt from first and last and from index basis as well
+Vector: same as arraylist but it thread safe
+Satck:follows last in firt our order it also implements queue but its thread safe because for vector ans stack put lock on threads by using syncronised functional interface
+
+
+Map: (very important)
+map does not extends from collections here all the collections have unique values but in hashmap we have two one iskey abf value
+ here in hashamo key are uniquee
+
+ we have size()
+ isEmpty()
+ put()
+ remove()
+its a form of table underthehood like whle initilizaing if we metion  any size it takes that size otherwise it just take default size as 16
+and for each cell conatins hash,key,val,node next 
+ first whenevrr we try to insert like put the key into the map its first calculate the hash value fir that 
+ and it does % with size the map default 16 then will get index in that index it append key and value and hash which we calculuted and key ,value from input.
+
+ lets say if two or more keys get same index then it creases childrn linkedlist at particular index of  next  it points to  that  is nested linkedlist.
+ it would be helppul innfurther processing while getting elements
+
+ if linkedlist size grows there is a threeshold (loadfactor) if it reaches tjat loadfactor it simply converts linkedlist into treefy RBL trees binary search trees (AVL trees) this is the process happeing underthe hood
+ for put
+ let say when trying to a key from hash sae process uts again calculate the hash from that it calute mod same as before and checks whetehr tjat mainindex conatins the key which we need or not if not it checks whetehr the children linkedlist is there for that index or not if it does then it itterates ove r th elinkedi and cehcjs for the key whereas if it contains a Binary search its slight more easy to get elemnet or to search  as we eliminate half part of the tree as per key value
+it also as a node next 
+ Hashtable:
+ so hashmap and table almost similar with minor differences those are hashmap not htread safe whereas hashtable are (syncronized put locks for threads) and hashtable does not allow null but in hashmap we can use null as key and value 
+ and hashtable follows order but hashmap odes not
+ 
+ time compleixty for hashmap: 
+ put: avergae O(1) 
+get:average O(1) worest case its O(n) if we have linked list if trr
+search:O(1) worest caseits O(n) where as for binary search tree its O(logn)
+remove():O(1) worest caseits O(n) where as for binary search tree its O(logn)
+
+
+linkedhashmap:
+it is similar to hashamap but it follows linkedit nature and contains extra two keys for before and after to maintian the before an dafter of particular node
+while inserting it follow same process as hashmpa calculating hash and % of length of map to get index then once key is being added it updates the before and after  for that 
+again this is not htread safe but explicltoy to make thread safe use utility class Collections.syncronizedMap(new LinkedList());
+
+HashMap<Integer,String> map=new LinkedHashMap<>();
+
+Treemap:
+map-sortedmap-navigablemap-treemap
+
+map<Integer> map=new TreeMap<>();
+
+its is a node where its has left,parent,key,value,right
+it uses RBL trees means RBL sorted array so it takses O(logn) averaga time complexity
+for parnt node its parent is null 
+
+it has few methods and it folows sorting oirder default as asceining and if we mention comparatore tjhen it follows that 
+comparator
+
+map.headmap(tokey) //exclusive
+map.tailMap(fromkey) //inclusive
+map.firstKey()
+map.lastKey();
