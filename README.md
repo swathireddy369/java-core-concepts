@@ -2123,3 +2123,196 @@ map.headmap(tokey) //exclusive
 map.tailMap(fromkey) //inclusive
 map.firstKey()
 map.lastKey();
+
+
+Java Collections Framework
+Queue Implementations
+ArrayDeque
+
+Implementation of queue using an array
+Allows insertion and deletion from both ends (double-ended queue)
+Used for implementing both stack and queue data structures
+Not thread-safe
+Operations: addFirst(), addLast(), removeFirst(), removeLast()
+
+LinkedList
+
+Implements both List and Queue interfaces
+Allows element insertion/deletion at both ends and at specific index positions
+Double-ended queue capabilities with methods like addFirst(), addLast(), removeFirst(), removeLast()
+
+Vector
+
+Similar to ArrayList but thread-safe
+Uses synchronized methods for thread safety
+Generally slower than ArrayList due to synchronization overhead
+
+Stack
+
+Follows Last-In-First-Out (LIFO) order
+Thread-safe (extends Vector)
+Operations: push(), pop(), peek()
+
+Iterator
+
+Implements Iterable interface
+Used to iterate over collections
+Main methods: hasNext(), next(), remove()
+
+Map Implementations
+HashMap
+
+Stores key-value pairs where keys must be unique
+Does not extend from Collections framework (separate hierarchy)
+Core operations: put(), get(), remove(), size(), isEmpty()
+
+Internal Implementation:
+
+Default initial capacity: 16 buckets
+Uses array of buckets under the hood
+Process for put() operation:
+
+Calculates hash code of the key
+Maps hash to array index using hash % array_length
+Stores key-value pair at calculated index
+Handles collisions using linked lists at each bucket
+
+
+
+Collision Handling:
+
+Initially uses linked lists for collision resolution
+If linked list size exceeds threshold (load factor), converts to Red-Black Tree
+Conversion to tree improves worst-case performance from O(n) to O(log n)
+
+Performance:
+
+Average case: O(1) for put/get/remove operations
+Worst case: O(n) with linked lists, O(log n) with trees
+
+Key Features:
+
+Not thread-safe
+Allows null keys and values
+No guaranteed iteration order
+HashMap Internal StructureImage HashTable
+
+Similar to HashMap but with key differences:
+
+Thread-safe (uses synchronized methods)
+Does not allow null keys or values
+Typically slower than HashMap due to synchronization
+Has predictable iteration order (unlike HashMap)
+
+
+
+LinkedHashMap
+
+Extends HashMap with additional linked list structure
+Maintains insertion order of elements
+Contains extra references (before/after) for each entry to maintain order
+Internal implementation:
+
+Uses same hash calculation process as HashMap
+Additionally maintains doubly-linked list to track insertion order
+Updates before/after references when new entries are added
+
+
+
+Making thread-safe:
+javaMap<Integer, String> synchronizedMap = Collections.synchronizedMap(new LinkedHashMap<>());
+TreeMap
+
+Implements SortedMap and NavigableMap interfaces
+Stores entries in sorted order (natural ordering or custom Comparator)
+Implemented using Red-Black Trees
+Node structure: left child, parent, key, value, right child
+For root node, parent is null
+
+Performance:
+
+All operations take O(log n) time
+Guaranteed sorted iteration
+
+Key methods:
+
+headMap(toKey) - returns entries with keys less than toKey (exclusive)
+tailMap(fromKey) - returns entries with keys greater than or equal to fromKey (inclusive)
+firstKey() - returns the first (lowest) key
+lastKey() - returns the last (highest) key
+
+
+
+
+
+
+
+Day-16:
+hashset almost similiar to the hashmap except one difference here in hashset we dont concentarte on value we will be having keys only while adding elemnt into the set it adds elemnt as key and value as dummy object so its similar to hashmap but concentareed on keys onlyyyyy 
+hashset
+linkedhashset
+treeset everything similar to hashmap,linkedhashmapp and treemap
+
+
+
+Stream:
+
+we consider stream as a pipeline through our collection of data passess through
+while data passing through pipelines, many intermediate operations can be performed on our data
+it's useful whemn we have to process bulk data we can do parallel processing
+
+here we have 3 steps to follow
+
+1) create stream for our data
+2) do intermediate operations on data (filter,map,sorted,distint) here we treat these operations are lazy operations because these are executed when terminal operation invoked
+3) do terminal operations on data ( reduce,count,collect,) thses operation will trigger the stream means it closes the stream we cannot perform further processing on streatm after terminal operation
+and one more thing we should chnage main input stream at the end we give output as new stream not inout stream
+
+import java.util.stream.*;
+import java.util.*;
+
+public class StreamEx {
+    public static void main(String[] args) {
+        // from collection to stream
+        List<Integer> li = Arrays.asList(5, 1, 2, 9, 5, 32, 3, 4);
+        Stream<Integer> number = li.stream();
+        System.out.println(number.filter((Integer num) -> num > 33).count());
+        // from array to stream
+        Integer[] arr = new Integer[] { 45, 678, 899 };
+        Stream<Integer> streaData = Arrays.stream(arr);
+        streaData.map((Integer num) -> num * 9)
+                .forEach((Integer n) -> System.out.println(n));
+        List<Integer> fiResult = Arrays.stream(arr).map((Integer num) -> num * 0)
+                .peek((Integer n) -> System.out.println(n)).collect(Collectors.toList());
+        System.out.println("wooo" + fiResult);
+
+        // from static method
+
+        Stream<Integer> streamData = Stream.of(3, 4, 5, 7, 8, 9, 8);
+        // from streambuilder
+        Stream.Builder<Integer> streamData1 = Stream.builder();
+        streamData1.add(9);
+        streamData1.add(5);
+        streamData1.add(3);
+
+        // from stream iterate
+
+        Stream<Integer> streamDataIt = Stream.iterate(100, ((Integer num) -> num + 100)).limit(9);
+        // flatmap
+        String[][] list = new String[][] { { "B", "a", "A", "hiii", "hello", "hdbfhdkgaekg", "asdjkfnhaslfhdf" },
+                { "hiii" },
+                { "sam" } };
+
+        System.out.println(Arrays.stream(list)
+                .flatMap((sentence) -> Arrays.stream(sentence)).sorted((a, b) -> b.compareTo(a))
+                .collect(Collectors.toSet()));
+        // System.out.println(st);
+
+        // peek
+
+        System.out.println(Arrays.stream(list).map((st) -> Arrays.stream(st))
+                .collect(Collectors.toSet()));
+    }
+}
+//we have similiar intermediate and terminal function to playu with them and can do parallel processing as well to reduce the time of execution by using fork-join-pool technique in gthis algorthim they use to reduce the task into small chucks till possible and then do processing on small chuck and hthen combine the result  intsead of doing procsseing on one by one 
+//once we perform any operation on stream data then we cannot perform on that seperately we can take resilt of first processed one and do operations on that otherwise take from main stream.
