@@ -2316,3 +2316,238 @@ public class StreamEx {
 }
 //we have similiar intermediate and terminal function to playu with them and can do parallel processing as well to reduce the time of execution by using fork-join-pool technique in gthis algorthim they use to reduce the task into small chucks till possible and then do processing on small chuck and hthen combine the result  intsead of doing procsseing on one by one 
 //once we perform any operation on stream data then we cannot perform on that seperately we can take resilt of first processed one and do operations on that otherwise take from main stream.
+
+
+Day-17:
+
+process is instance of a program that is being executed
+
+whenever we are executing the program our first step is javac filename.java 
+it compiles the code and convert into byte code 
+then we run execute java filaname
+at that point of time process is created or started 
+once process started its JVM instance is being created
+while creating jvm instance we jvm allocate some memory for that process from overall heap memory thisprocessshould use that memory once when its trying to ius emore it will get memory error
+
+once jvm instance is created the main thread is being created then the jit compiler starts executing 
+so here for each process a jvm instance will be created as i told so it shares heap,codesegement,datasegment among all thread where as stack ,counter,and registery is seperate from each thread they do not share resources
+
+let start executing main thread while executing by JIT compiler to covert into machine code it may create few thread as per requirement to easy the execution 
+ 
+
+JIT compiler converts byte code into  machine code and stores that machine code into code segement which has been shared by all over the process or instance
+
+let s say 
+
+heap - to store instances which are created in runtime
+code segement-it stores all the machine code
+data segemnt- it stores gloabla and static variables (data)
+
+stack- all local variables and method calls
+registry -it;s store the intermediate result for particulr thread
+counter -it holds memory address of an insturtion where the  thread is going to start execution 
+ onece thread creattion and convereting to machine code is done 
+
+ OS or JVM will schedule the task to run theese threads into cpu
+
+
+ lets say t1 as allocated to cpu then thread1 gives its counter and regirty to cpu to execute and cpu does its task whenver os or jvm tells cpu to stop execution of thread1 and if it allocate to anithe rthread then then thread current thread takes its processed resultand stores inti its personall regisrtu and waits for nest call. when next allocted just thread loads registry intermedite results into cpu then cpu starts exeution from where it was left.
+
+process does not share any resources among them whereas threads do
+
+multitasking and multri threading :
+
+multitasking cannot share resoucres among theem where multiple thread can share
+
+
+thread creation:
+here we have two ways to create thread
+one is by implemening runnable interface and other one is extending thread class in product based companaies uses implement runnable concept because once the class extends one class it cannot extend  others that is why
+
+public class RunnableInterfaceThread {
+    public static void main(String[] args) {
+        MyClass1 clsObj1 = new MyClass1(); // instance of our class
+        Thread th1 = new Thread(clsObj1);// thread created underthe wood it runns the our class run method
+        Thread th2 = new Thread(clsObj1);
+        // th1.start();// we need to start the thread
+        // th2.start();
+
+        Thread th3 = new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+
+            } catch (Exception e) {
+
+            }
+            clsObj1.produce();
+        });
+        Thread th4 = new Thread(() -> {
+
+            clsObj1.consumer();
+
+        });
+        th4.start();
+        th3.start();
+
+    }
+}
+
+class MyClass1 implements Runnable {
+    boolean isAvaialble = false;
+
+    @Override
+    public void run() {
+        // TODO Auto-generated method stub
+        System.out.println("i am implemeing runnable");
+    }
+
+    public synchronized void produce() {
+        isAvaialble = true;
+        System.out.println("i am notifying all");
+        notifyAll();
+
+    }
+
+    public synchronized void consumer() {
+        System.out.println("in cosume in sync");
+        try {
+            if (!isAvaialble) {
+                wait();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        System.out.println("i am acquired lock and done");
+        isAvaialble = true;
+    }
+
+}
+
+stop,suspend,resume deprecated 
+
+t1.join() it makes the current thread to wait until finish certain thread
+it helps if we have dependency on other thread to complete our thread
+
+th1.priority()// 1 lesss 10 high
+
+it does not gurante that threads is execute in this order but it just a hint to thread scheduler to execute next
+if thread schduler has its own priority it follows its own priority
+priority is inherited from parent thread
+or we can setPriority() custom
+
+
+Daemon thread:
+it start executing with main thread asyncronously but when main thread is terminated our daemon thread will be terminated 
+
+its most import we use daemon lock for GC, autosave and loggong it does very complex operations
+
+Day-17: Java Threading & Process Management Notes
+What is a Process?
+Process is instance of a program that is being executed.
+Whenever we are executing the program our first step is javac filename.java - it compiles the code and converts into byte code. Then we run java filename - at that point of time process is created or started.
+Once process started, JVM instance is being created. While creating JVM instance, JVM allocates some memory for that process from overall heap memory. This process should use that memory - once when it's trying to use more it will get memory error.
+Once JVM instance is created, the main thread is being created then the JIT compiler starts executing.
+Memory Structure & Thread Sharing
+So here for each process a JVM instance will be created. It shares these among all threads:
+
+Heap - to store instances which are created in runtime
+Code segment - it stores all the machine code
+Data segment - it stores global and static variables (data)
+
+These are separate for each thread (they do not share resources):
+
+Stack - all local variables and method calls
+Registry - it stores the intermediate result for particular thread
+Counter - it holds memory address of an instruction where the thread is going to start execution
+
+How Thread Execution Works
+Let's start executing main thread. While executing by JIT compiler to convert into machine code, it may create few threads as per requirement to ease the execution.
+JIT compiler converts byte code into machine code and stores that machine code into code segment which has been shared by all over the process or instance.
+Once thread creation and converting to machine code is done, OS or JVM will schedule the task to run these threads into CPU.
+Let's say t1 is allocated to CPU - then thread1 gives its counter and registry to CPU to execute and CPU does its task. Whenever OS or JVM tells CPU to stop execution of thread1 and if it allocates to another thread, then the current thread takes its processed result and stores in its personal registry and waits for next call. When next allocated, the thread loads registry intermediate results into CPU then CPU starts execution from where it was left.
+Process vs Threads
+Process does not share any resources among them whereas threads do.
+Multitasking vs Multithreading:
+
+Multitasking cannot share resources among them
+Multiple threads can share resources
+
+Thread Creation
+Here we have two ways to create thread:
+
+By implementing Runnable interface
+Extending Thread class
+
+In product based companies they use implement Runnable concept because once the class extends one class it cannot extend others - that is why.
+Code Example:
+javapublic class RunnableInterfaceThread {
+    public static void main(String[] args) {
+        MyClass1 clsObj1 = new MyClass1(); // instance of our class
+        Thread th1 = new Thread(clsObj1);// thread created under the hood it runs our class run method
+        Thread th2 = new Thread(clsObj1);
+        // th1.start();// we need to start the thread
+        // th2.start();
+
+        Thread th3 = new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+            }
+            clsObj1.produce();
+        });
+        
+        Thread th4 = new Thread(() -> {
+            clsObj1.consumer();
+        });
+        
+        th4.start();
+        th3.start();
+    }
+}
+
+class MyClass1 implements Runnable {
+    boolean isAvailable = false;
+
+    @Override
+    public void run() {
+        System.out.println("i am implementing runnable");
+    }
+
+    public synchronized void produce() {
+        isAvailable = true;
+        System.out.println("i am notifying all");
+        notifyAll();
+    }
+
+    public synchronized void consumer() {
+        System.out.println("in consume in sync");
+        try {
+            if (!isAvailable) {
+                wait();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        System.out.println("i am acquired lock and done");
+        isAvailable = false; // ⚠️ FIXED: Should be false after consuming
+    }
+}
+Thread Control Methods
+Deprecated methods: stop, suspend, resume are deprecated
+join(): t1.join() - it makes the current thread to wait until certain thread finishes. It helps if we have dependency on other thread to complete our thread.
+Priority: th1.setPriority() - 1 is lowest, 10 is highest priority.
+
+It does not guarantee that thread is executed in this order but it's just a hint to thread scheduler to execute next
+If thread scheduler has its own priority it follows its own priority
+Priority is inherited from parent thread
+Or we can setPriority() custom
+
+Daemon Thread
+It starts executing with main thread asynchronously but when main thread is terminated our daemon thread will be terminated.
+It's most important - we use daemon threads for GC, autosave and logging. It does very complex operations.
+
+⚠️ Technical Fixes Made:
+
+Fixed typo: isAvaialble → isAvailable
+Logic fix: In the consumer method, after consuming, isAvailable should be set to false, not true
+Spelling fixes: Various minor spelling corrections throughout
