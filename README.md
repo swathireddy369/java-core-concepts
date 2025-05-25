@@ -2551,3 +2551,89 @@ It's most important - we use daemon threads for GC, autosave and logging. It doe
 Fixed typo: isAvaialble → isAvailable
 Logic fix: In the consumer method, after consuming, isAvailable should be set to false, not true
 Spelling fixes: Various minor spelling corrections throughout
+
+
+Day-18:
+
+custom locks:it does not deal with object
+
+# Reentrant lock: only one htread should allow into critical section irrespective of object
+# readwritelock : mutiple threads can aquire read lock on resource but no write lock can be acquired while read lock acquired by other threads.
+ only one write lock can be acquired at any  time no read lock can be acquired while write lock acquired
+    ## shared lock -readlock
+    ## exclusive lock - write lock
+# stampedlock
+  ## optimiclock () - all these custom locks like reentrant lock,read write locks are persimistic locks but on thing here no lock will be available but it manages the stamp to communicate in place of lock and unlock after every thread operation it release lock
+  ## persimistic lock(readwritelock but it maintains the stamp): same as read write lock it uses stamp before doing operation, crosschecks either stamp has changed by some other thread by using lock.validate(stamp) after has been read by this thread.
+#semaphore lock  :here it allows more than one thread to acquire lock at a point of time
+#condition lock : here for all our custom locks we dont have wait and notify like monitorlocks(syncronized) so to add that capability in custom locks we have await (similar to wait) and signal or sigmnalAll similar to notifyall
+
+
+### CAS operation :
+compare and swap operation its a low level operation
+its single operation
+automic operation
+whether running multiple threades or running in mutiple cores parallelly does not matter it treated as single operation
+
+it like optimistic lock method: as it checks rv before updating 
+note: optimistic inspired from cas operation in cas we have 3 paramters those are memory,expected and new value whenevr the expected and memory valuye matched then then it does operation as it update new value
+
+1) load the data from memory (memory address as first argument)
+2) modify 
+3)update
+where before update checks the expectd and actual value 
+
+let say we have value x=10 , memory address for x=10 and expected as 10 and new value as 15 beofre update it checks actuala nd expected
+
+here first it has x=10 then 11,then 13 again it chnage to 10 then that should not become true case so that is called ABA issue to resolve that issue 
+we can add timestamp or version to avoid mismates
+
+int count =0; here it is atomic operation
+
+ int count =0;
+ count++;
+ this is not atomic here we are doing 3 operations those are 
+ first loading the counter from memory
+ second modifying count to count+1
+
+ thirs updation so overall 3 steps it does not give expetced results when we use threads righty so that here to resole this we have two options 
+ 
+ 
+ 1)lock based system
+ 2) lock fee mechanism automic integer 
+
+ here when we have load,modify and update case use this scenario lock fee mechanism automic integer :
+
+ which has been provided by CAS
+
+ do{
+    expected=load data from memory
+ }while(!CAS(memory,expected,newvalue));
+
+ it has been updated till the CAS bemome true
+
+ refer :AutomicInteger practice
+
+finally 
+
+we have  AutomicInteger, AutomicBoolean, AutomicLong and AutomicReference
+
+Atomic vs voilatile
+
+Atomic belongs to threadsafe and related to threads concept whereas 
+
+voilatile not threadsafe not belongs to thread
+
+
+lets say 
+
+cpu1-core1-l1cache-
+                          common l2cache -memory
+
+cpu1-core2-l1cache-
+
+let say if th1 running in core 1 of  cpu and update the x value to 11 from 10 and written in l1 cache of its core where two cores l1 caches are not in sync so while core2 wants to load data of x then it checks with its l1chache l2chache cache as expected it does not contain so it checks with memory while memory contains x but its old value there will be mismatch so to avoid that if we put voilatile beofre variable then every read and writte operation should be done from and to to memory so there would be no mismatch. 
+
+file:///C:/Users/swath/Downloads/concurrency_diagram.html
+
+
