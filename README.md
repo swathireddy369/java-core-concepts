@@ -2552,6 +2552,7 @@ Fixed typo: isAvaialble → isAvailable
 Logic fix: In the consumer method, after consuming, isAvailable should be set to false, not true
 Spelling fixes: Various minor spelling corrections throughout
 
+Day-17:socket issue
 
 Day-18:
 
@@ -2637,3 +2638,9 @@ let say if th1 running in core 1 of  cpu and update the x value to 11 from 10 an
 file:///C:/Users/swath/Downloads/concurrency_diagram.html
 
 
+
+
+
+Week-4-Day-7:
+
+Thread pool executor: but not satisfied with day sorry 
