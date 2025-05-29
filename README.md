@@ -2698,3 +2698,19 @@ Week-5-Day-2:
 thenApply:it allow us to add another function for already executed function (chaining) and it syncronous means it uses same thread which we have used for prev task
 
 thenApplyAsync: it allow us to chain another function to already calcualted function where it is asyncronous so that it takes another thread from pool
+
+3)thenCompose:
+
+ thenComposeAsync:
+
+ we use compose when we have a dependency where our task dependent on previous task result the we use compose (combining two tasks one after another )
+
+ 4) then accpet:its for final when you want to do something in the final after all task done like clearing interval or some cleanup kind of things you can do but it does not return anything
+
+ 5) thenCombine: it is the purpose of combining tow task results that is 
+
+ in all cases async means it runs on different thread than previou thread which did task1
+  if we did not put async it run on same thread which did task 1
+
+
+  so so after careful observation i came to know that putting async is safe because what if our task1 runs on important thread let say threads which accpets user request are limited ,webserver threads need to respond quickly what if our task1 runs on that type of thread and if our task2 is alson running on same thread and our task2 might be slow or it may be long task then our important may block here to complete task2 it efects that performace simply main chef handles the main prep and he manages the front and assitant does the remainingb tasks  it shows better perfomance otherwise if main chef blocked by secondary tasks then customers does not feel good
