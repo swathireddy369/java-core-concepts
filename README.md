@@ -2644,3 +2644,57 @@ file:///C:/Users/swath/Downloads/concurrency_diagram.html
 Week-4-Day-7:
 
 Thread pool executor: but not satisfied with day sorry 
+
+
+Week-5-Day-1:
+
+usually when we use threadpoolexecutor we just run submit executor to run the task (it will create thread for that task)
+but but main thread does not know the status of the thread which created for runnable task
+whether its completed or stopped or got any execption
+
+
+so here we have Future interface to catch the status of thread which we created 
+we have few methods to get to know the child thread status
+
+1) .done() - it returns true
+   #Future is the interface and it accepts wild card it may be anything the
+        # Future<?> reason to put this is it returns nothing so void in such case it would be Object
+     
+  # main thread does not wait for the child thread
+     
+     isDone() - it returns boolean weather thread complets its execution or not (Done means whatever the status of thread like it may thrown an error, completed successfully, and cancelled)
+     cancel(true or false) -it accepts boolean as argument and it decides as per the argument whether it stop the execution or not if already started execution
+     isCancelled - it returns boolean weather thread execution has been cancelled or not by passing above cancel command
+     get() - it allows main thread to wait for runnable thread to complete its execution, so it sould wait till the time runnable thread completes its execution
+     get(1.TimiUnit.MiNUTES) it allow mainthread to wait fro runnable thread till the time mentioned in the arguments after the time period it does not wait  irrespective of runnable thread status
+        
+      1) we have runnable and callable
+
+     # here one more point i would like to add 
+     if we mention like this 
+        Future<?> futureObj = executor.submit(() -> {
+            System.out.println("i am running");
+        });
+        it triggers runnable thread becaue we mentioned Future interface attribute type as wildcard so that it means it may or may not return so that it assumes task as runnable type
+        whereas callable sg=hould return something if we mention return type then it triggers callable let me check
+
+//CompletableFuture
+
+//this feature avaiable from java8 
+//it makes task asyncronous
+// it is an advanced feature of Future
+//we have few features in 
+//it prodives chaining
+//if we provide poolexecutor then it will take thread from that pool itslef otherwise it takes from default shared fork join pool executor
+
+
+
+Week-5-Day-2:
+
+1)supplyAsync: it makes task asyncronous (default Forkjoinpool, we can provide executor)
+     
+2) thenApply and thenApplyAsync
+
+thenApply:it allow us to add another function for already executed function (chaining) and it syncronous means it uses same thread which we have used for prev task
+
+thenApplyAsync: it allow us to chain another function to already calcualted function where it is asyncronous so that it takes another thread from pool
