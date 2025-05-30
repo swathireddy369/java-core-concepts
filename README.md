@@ -2714,3 +2714,57 @@ thenApplyAsync: it allow us to chain another function to already calcualted func
 
 
   so so after careful observation i came to know that putting async is safe because what if our task1 runs on important thread let say threads which accpets user request are limited ,webserver threads need to respond quickly what if our task1 runs on that type of thread and if our task2 is alson running on same thread and our task2 might be slow or it may be long task then our important may block here to complete task2 it efects that performace simply main chef handles the main prep and he manages the front and assitant does the remainingb tasks  it shows better perfomance otherwise if main chef blocked by secondary tasks then customers does not feel good
+
+
+
+
+  week-5 Day-3:
+  1)fixedThreadPool:it has fixed min and max pool size of threads and unbloked queue and live time yes because we have limited threads 
+  min and max: 3
+  queue: non blocked
+  live when idle: yes
+  advantage: when we have limited tasks and we know exaclty
+  disadvatange:  what if many tasks submitted then limited thread issue may occur
+
+  2)CacheThreadPool
+
+  min and max: no number it creates threads as per incoming tasks (100 tasks 100 threads)
+  queue: non blocked
+  live when idle: 6seconds
+  advantage: when we have short live threads
+  disadvatange: what if our task take long time the memory error would occur
+
+  3)SinglethreadPool  :
+   min and max: 1,1
+  queue: non blocked
+  live when idle: yes
+  advantage: when the case we have single task
+  disadvatange: no consurrency occured
+
+
+  4)workjoinpool
+  Forkjoinpool: workjoinpool nothung but forkjoinpool because basically in our thread pool executer our tasks converts into small tasks to run paralley by using
+  fork() and then wait to complete all tasks and join the result in this way run concurrently in less time
+  so task1 and task2
+
+  task1 dont have any need to split so thread is executing it
+  where as task2 is big so need to spli into two task so t2,t3 then thread 2 execute the task2 and then each thread contains its own workstealpoolqueue(dequeue)
+  so that thread2 put this sub task3 into thier WSP, however if task1 completes its job then its 
+  check
+  1) does it contain any thread its WSt
+  2)does it conatins any thread in submission queue'
+  3) it can steal task from any busy thread in the pool from its WSP back and 
+  and put that task into its WSP front
+
+
+
+  1)shutdown; main thread will be terminated immediatley but the threads which are running inside pool will be executed and then (waiting,running,sleeping)
+  2)awaitTermination : it checke wether the thread shutdowned or not after showndown (true or false) because if there any threads running inside it shoudn't be termiated completely ad one thisng here for awaut terminate it give some delay time  after delay it check weather thread terminated or not
+  3)shutdownnow : main thread and all inner thread which are ruuning and waiting completely terminated in this case(await termiate gives you true)
+
+  schedule
+
+  schedule(runnabletask,delay,timeunit);
+  schedule(callableTask <V>,delay,timeunit);
+  scheduleFixedRate(runnable,long delay,long period,Timeunit unit);
+  scheduleFixedDelay(runnable,long initaildelay, long delay, Timeuint unit)
