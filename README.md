@@ -2768,3 +2768,27 @@ thenApplyAsync: it allow us to chain another function to already calcualted func
   schedule(callableTask <V>,delay,timeunit);
   scheduleFixedRate(runnable,long delay,long period,Timeunit unit);
   scheduleFixedDelay(runnable,long initaildelay, long delay, Timeuint unit)
+
+
+  
+  week-6 Day-1:
+
+  Local class
+
+  platform thread and virtula thread
+
+  lombok:
+  1)@val,var
+  2)@NonNull
+  3)@toString
+  4)@getter and @setter
+  5)@AllArgsConstructor
+    @NoArgsConstructor
+    @RequiredArghsConstructor
+  6)HashcodeEquals 
+  7)@Data
+  8)@value
+  9)@builder
+  10)@cleanup
+
+  sequenced collection, sequencedmap,sequencedset
